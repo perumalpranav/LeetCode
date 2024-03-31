@@ -7,17 +7,17 @@ class Solution(object):
         """
         sortlist = sorted(nums)
         while(len(sortlist)>1):
-            #min = sortlist[0]
+            min = sortlist[0]
             max = sortlist[len(sortlist)-1]
-            if(sortlist[0] + max > target):
+            if(min + max > target):
                 sortlist.pop(len(sortlist)-1)
-            elif(sortlist[0] + max < target):
+            elif(min + max < target):
                 sortlist.pop(0)
             else:
                 check = [False,False]
                 rlist = []
                 for i in range(len(nums)):
-                    if(nums[i]==sortlist[0]):
+                    if(nums[i]==min):
                         rlist.append(i)
                     elif(nums[i]==max):
                         rlist.append(i)
