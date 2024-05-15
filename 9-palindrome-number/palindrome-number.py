@@ -4,14 +4,18 @@ class Solution(object):
         :type x: int
         :rtype: bool
         """
-        if x < 0 or (x % 10 == 0 and x != 0):
+        if x < 0:
             return False
 
-        reversed_half = 0
-        # Build the reverse of the second half of x
-        while x > reversed_half:
-            reversed_half = reversed_half * 10 + x % 10
-            x //= 10
 
-        # When the length of the number is odd, we can get rid of the middle digit by reversed_half // 10
-        return x == reversed_half or x == reversed_half // 10
+        original = x
+        reversed_num = 0
+
+# Reverse the number
+        while x > 0:
+            digit = x % 10  # Get the last digit
+            reversed_num = reversed_num * 10 + digit  # Append the digit to the reversed number
+            x //= 10  # Remove the last digit from x
+
+# Check if the original number is equal to the reversed number
+        return original == reversed_num
