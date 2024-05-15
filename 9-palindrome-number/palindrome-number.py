@@ -10,6 +10,7 @@ class Solution(object):
         elif x == 0:
             return True
         
+
         original = x
         reversed_number = 0
         
