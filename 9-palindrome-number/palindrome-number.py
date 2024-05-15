@@ -4,14 +4,25 @@ class Solution(object):
         :type x: int
         :rtype: bool
         """
-        if x < 0 or x % 10 == 0:
-            if x == 0:
-                return True
+        if x < 0:
             return False
-
-        reverted_number = 0
-        while x > reverted_number:
-            reverted_number = reverted_number * 10 + x % 10
+        
+        elif x == 0:
+            return True
+        
+        original = x
+        reversed_number = 0
+        
+        # Loop until x becomes 0
+        while x > 0:
+            # Extract the last digit of x
+            last_digit = x % 10
+            
+            # Update x to remove the last digit
             x //= 10
-    
-        return x == reverted_number or x == reverted_number // 10
+            
+            # Multiply the reversed_number by 10 and add the last digit to it
+            reversed_number = reversed_number * 10 + last_digit
+        
+        # Compare the original number with its reversed form
+        return original == reversed_number
