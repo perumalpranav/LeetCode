@@ -7,15 +7,17 @@ class Solution(object):
         if x < 0:
             return False
 
-
+        # Store the original number to compare later
         original = x
-        reversed_num = 0
+        reversed_number = 0
 
-# Reverse the number
         while x > 0:
-            digit = x % 10  # Get the last digit
-            reversed_num = reversed_num * 10 + digit  # Append the digit to the reversed number
-            x //= 10  # Remove the last digit from x
+            # Extract the last digit of the number
+            digit = x % 10
+            # Add the digit to the reversed number
+            reversed_number = reversed_number * 10 + digit
+            # Remove the last digit from the original number
+            x //= 10
 
-# Check if the original number is equal to the reversed number
-        return original == reversed_num
+        # Check if the reversed number is equal to the original number
+        return original == reversed_number
