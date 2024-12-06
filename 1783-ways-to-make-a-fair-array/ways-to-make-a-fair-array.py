@@ -5,13 +5,13 @@ class Solution(object):
         :rtype: int
         """
         #Basic Solution: (Brute Force)
-        #Find even and odd sums for each element's left and right arrays (MAKE THIS DP)
+        #Find even and odd sums for each element's left and right arrays (this was converted to  DP)
         #Use this to compute if array will be fair
 
         ways = 0
         n = len(nums) 
 
-        #Each element of dparray will have (before,after) of each element
+        #Each element of dp array will have (before,after) of each element
         T = [[(0,0),(0,0)]] * n
         initialSums = self.zeroOneSums(nums[1:])
         T[0] = [(0,0),initialSums]
