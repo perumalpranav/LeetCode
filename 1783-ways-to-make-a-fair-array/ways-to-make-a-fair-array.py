@@ -19,17 +19,6 @@ class Solution(object):
         if (initialSums[0] == initialSums[1]):
             ways += 1
 
-        #Recurrence Relation
-        #IF i+1 is odd
-            #i is even --> thus, before zeroSum should add i, and before oneSum should be the Same
-            #T[i+1][0] = (T[i][0][0] + nums[i],T[i][0][1])
-        #ELSE i+1 is even
-            #i is odd --> thusm, before zeroSum stay same, and after zeroSum should add i
-            #T[i+1][0] = (T[i][0][0],T[i][0][1] + nums[i])
-
-        #After zeroSum should remove i+1, and after oneSum should be the Same
-        #T[i+1][1] = (T[i][1][0] - nums[i+1],T[i][1][1])
-
         for i in range(1,n):
             evenSum = -100
             oddSum = -200  
