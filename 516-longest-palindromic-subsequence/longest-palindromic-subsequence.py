@@ -21,7 +21,14 @@ class Solution:
 
 
         for length in range(2,n+1): #2,3,4,5,6,7,8 if n = 8
-            for startIndex in range(n-length+1): #0...6(l = 2)1...7,0...5(l = 3),0...4(l = 4),0...3(l = 5),0...2(l = 6),0..1(l = 7),0(l=8)
+            for startIndex in range(n-length+1): 
+                #0...6(l = 2) 1...7
+                #0...5(l = 3)
+                #0...4(l = 4)
+                #0...3(l = 5)
+                #0...2(l = 6)
+                #0...1(l = 7)
+                #0    (l = 8)
                 endIndex = (length-1) + startIndex
                 #Option 1
                 opt1 = float('-inf')
