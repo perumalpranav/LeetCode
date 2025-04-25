@@ -15,10 +15,9 @@ class Solution:
 
         storage = []
 
-        c = head
-        while c:
-            heapq.heappush(storage, (c.val, id(c), c))
-            c = c.next
+        while head:
+            heapq.heappush(storage, (head.val, id(head), head))
+            head = head.next
 
         prev = None
         while storage:
