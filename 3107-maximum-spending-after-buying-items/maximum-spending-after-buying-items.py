@@ -1,3 +1,5 @@
+import heapq
+
 class Solution:
     def maxSpending(self, values: List[List[int]]) -> int:
             #Greedy
@@ -8,30 +10,25 @@ class Solution:
 
             #Combine the different shops together into one big list sorted by price (increasing)
             #Iterate through list and add to the total the (day * price)
+            m, n = len(values), len(values[0])
 
-            def compareFirstElements() -> int:
-                maxRow = -1
-                maxVal = float('-inf')
-                
-                for i in range(len(values)):
-                    if len(values[i]) > 0:
-                        if values[i][0] > maxVal:
-                            maxRow = i
-                            maxVal = values[i][0]
-                
-                if maxRow != -1:
-                    values[maxRow].pop(0)
-
-                return maxVal
+            minheap = []
+            for i in range(len(values)):
+                heapq.heappush(minheap, (values[i][-1], i))
+                values[i].pop(-1)
 
             totalSpending = 0
-            dayCountdown = len(values[0] * len(values)) #Reverse Order (must be calculated before the first compareFirstElements Call)
-            nextPrice = compareFirstElements()
-            while nextPrice != float('-inf'):
-                totalSpending += (nextPrice * dayCountdown)
-                nextPrice = compareFirstElements()
-                dayCountdown -= 1
+            dayCount = 1 #Reverse Order 
+            while len(minheap) > 0:
+                nextPrice, row = heapq.heappop(minheap)
+                print(f"Price {nextPrice}; Day {dayCount}")
+                totalSpending += (nextPrice * dayCount)
+                if len(values[row]) > 0:
+                    heapq.heappush(minheap, (values[row][-1], row))
+                    values[row].pop(-1)
+                dayCount += 1
 
+            print(minheap)
             return totalSpending
             
 
