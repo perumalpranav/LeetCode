@@ -24,27 +24,15 @@ class Solution:
 
                 return maxVal
 
-            masterList = [] #Descending
-
+            totalSpending = 0
+            dayCountdown = len(values[0] * len(values)) #Reverse Order (must be calculated before the first compareFirstElements Call)
             nextPrice = compareFirstElements()
             while nextPrice != float('-inf'):
-                masterList.append(nextPrice)
+                totalSpending += (nextPrice * dayCountdown)
                 nextPrice = compareFirstElements()
-
-
-            totalSpending = 0
-            i = 1
-            while len(masterList) > 0:
-                totalSpending += (masterList.pop(-1) * i)
-                i += 1
+                dayCountdown -= 1
 
             return totalSpending
-
-            
-
-
-
-            #Reverse the list (or iterate backwards)
             
 
 
