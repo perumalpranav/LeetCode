@@ -2,10 +2,7 @@ class Solution:
     def canBeEqual(self, target: List[int], arr: List[int]) -> bool:
         elements = {}
         for e in arr:
-            if e in elements.keys():
-                elements[e] += 1
-            else:
-                elements[e] = 1
+            elements[e] = elements.setdefault(e, 0) + 1
 
         for e in target:
             if e in elements.keys():
