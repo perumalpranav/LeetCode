@@ -17,16 +17,18 @@ class Solution:
         for c in s:
             letters[c] = letters.setdefault(c,0) + 1
 
-        all_gcd = reduce(gcd,[*letters.values(),len(s)])
+        attempt = reduce(gcd,[*letters.values(),len(s)])
+        if len(s) % attempt == 0:
+            attempt = int(len(s)/attempt)
 
-        #Iterate by number of paritions of s rather than length of s
-        for g in range(all_gcd, 0, -1):
-            if all_gcd % g != 0:
-                continue
-            t = len(s) // g #length
-            print(t)
-            if checkT(t):
-                return t
+        print(attempt)
+
+        trial = max(attempt, len(letters))
+        while trial < len(s):
+            if checkT(trial) == True:
+                return trial
+            else:
+                trial += attempt
 
         return len(s)
 
