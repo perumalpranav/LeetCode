@@ -1,66 +1,36 @@
-import copy
+from math import gcd
+from functools import reduce
 
 class Solution:
     def minAnagramLength(self, s: str) -> int:
-        letters = set()
-        for c in s:
-            letters.add(c)
-        
-        #len(letters) minimum possible length of t
-
-        #String t
         def checkT(trial: int) -> bool:
-            i = 0
-            carryOver = None
+            sample = sorted(s[0:trial])
+            i = trial
             while i < len(s):
-                anagramDict = {}
-                for letter in s[i:i+trial]:
-                    if letter not in anagramDict.keys():
-                        anagramDict[letter] = 1
-                    else:
-                        anagramDict[letter] += 1
-
-                print(f"{carryOver} + {anagramDict}")
-
-                for l in letters:
-                    print(l)
-                    if l not in anagramDict.keys():
-                        return False
-                    else:
-                        anagramDict[l] -= 1
-
-                print(f"{carryOver} + {anagramDict}")
-
-                sameLetters = True
-                numLeftOver = 0
-                for key, val in anagramDict.items():
-                    if val != 0:
-                        numLeftOver += val
-                        if carryOver != None:
-                            if carryOver[key] != val:
-                                print(f"{carryOver} + {anagramDict}")
-                                return False
-                        
-                if (len(letters) + numLeftOver != trial) or not sameLetters:
+                test = sorted(s[i:trial+i])
+                if test != sample:
                     return False
-
-                if carryOver == None:
-                    carryOver = copy.deepcopy(anagramDict)
-
                 i += trial
-
             return True
 
+        letters = {}
+        for c in s:
+            letters[c] = letters.setdefault(c,0) + 1
 
-        lo = len(letters)
-        hi = len(s)
+        attempt = reduce(gcd,[*letters.values(),len(s)])
+        if len(s) % attempt == 0:
+            attempt = int(len(s)/attempt)
 
-        while lo < hi:
-            if len(s) % lo != 0:
-                lo += 1
-                continue
-            if checkT(lo):
-                return lo
-            lo += 1
+        print(attempt)
 
-        return lo
+        trial = attempt
+        while trial < len(s):
+            if checkT(trial) == True:
+                return trial
+            else:
+                trial += attempt
+
+        return len(s)
+
+
+        
