@@ -15,7 +15,7 @@ class Solution:
         for c in s:
             letters[c] = letters.setdefault(c,0) + 1
 
-        attempt = reduce(gcd,[*letters.values(),len(s)])
+        attempt = reduce(gcd,letters.values())
         if len(s) % attempt == 0:
             attempt = int(len(s)/attempt)
 
