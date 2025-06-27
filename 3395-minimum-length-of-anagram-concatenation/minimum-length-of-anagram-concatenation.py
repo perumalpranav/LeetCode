@@ -3,12 +3,6 @@ from functools import reduce
 
 class Solution:
     def minAnagramLength(self, s: str) -> int:
-        letters = set()
-        for c in s:
-            letters.add(c)
-        
-        #len(letters) minimum possible length of t
-
         def checkT(trial: int) -> bool:
             sample = sorted(s[0:trial])
             i = trial
@@ -19,17 +13,24 @@ class Solution:
                 i += trial
             return True
 
+        letters = {}
+        for c in s:
+            letters[c] = letters.setdefault(c,0) + 1
+
+        attempt = reduce(gcd,[*letters.values(),len(s)])
+        if len(s) % attempt == 0:
+            attempt = int(len(s)/attempt)
+
+        print(attempt)
+
+        trial = attempt
+        while trial < len(s):
+            if checkT(trial) == True:
+                return trial
+            else:
+                trial += attempt
+
+        return len(s)
+
+
         
-
-        lo = len(letters)
-        hi = len(s)
-
-        while lo < hi:
-            if len(s) % lo != 0:
-                lo += 1
-                continue
-            if checkT(lo):
-                return lo
-            lo += 1
-
-        return lo
