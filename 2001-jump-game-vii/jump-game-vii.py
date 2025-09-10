@@ -2,7 +2,6 @@ from collections import deque
 
 class Solution:
     def canReach(self, s: str, minJump: int, maxJump: int) -> bool:
-        #dp[i] = is it possible to reach place i
         n = len(s)
         s = list(s)
 
@@ -34,5 +33,4 @@ class Solution:
             else:
                 s[i] = '1'
 
-        print(s)
         return s[-1] == '0'
