@@ -8,7 +8,6 @@ class Solution:
         iList = deque([0])
         iSet = {0}
         while len(iList) > 0:
-            print(iList)
             i = iList.popleft()
             iSet.remove(i)
             for j in range(i+1,n+1):
