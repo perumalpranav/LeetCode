@@ -1,19 +1,19 @@
 class Solution:
     def countSubstrings(self, s: str) -> int:
         numPalindromes = len(s)
-        palindromes = set(c for c in s) #add in all single characters
+        n = len(s)
+        dp = [[False] * (n+1) for _ in range(n+1)]
         
-        for i in range(len(s)-1): #add in all valid pairs
-            if s[i] == s[i+1]:
-                palindromes.add(s[i:i+2])
-                numPalindromes += 1
+        for i in range(n):
+            dp[i][i] = True #No letters
+            dp[i][i+1] = True #One letter
 
-        l = 3
+        l = 2
         while l <= len(s):
             for i in range(len(s)-l+1):
                 j = i + l - 1
-                if s[i] == s[j] and s[i+1:i+l-1] in palindromes:
-                    palindromes.add(s[i:i+l])
+                if s[i] == s[j] and dp[i+1][i+l-1]:
+                    dp[i][i+l] = True
                     numPalindromes += 1
             l+=1
 
