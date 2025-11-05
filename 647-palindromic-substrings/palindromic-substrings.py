@@ -17,7 +17,6 @@ class Solution:
                     numPalindromes += 1
             l+=1
 
-        print(palindromes)
         return numPalindromes
         
 
