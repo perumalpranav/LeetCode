@@ -2,9 +2,15 @@ from collections import Counter
 
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        n = len(nums)
-        occurences = Counter(nums)
-        for k, v in occurences.items():
-            if v > n//2:
-                return k
-        
+        counter = 0
+        maj = None
+        for n in nums:
+            if counter == 0:
+                maj = n
+            if maj == n:
+                counter += 1
+            else:
+                counter -= 1
+        return maj
+
+
