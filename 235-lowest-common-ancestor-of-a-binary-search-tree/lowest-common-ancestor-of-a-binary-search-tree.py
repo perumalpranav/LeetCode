@@ -17,42 +17,20 @@ class Solution:
         #Traverse tree, (DFS?) to establish the depth of nodes p and q (build a path from root when doing so)
         #Move up using built paths
         
-        def dfs(node, path, target):
-            if node is None:
-                return None
+        #Better Solution
+        #Traverse tree looking for the nodes
+        #If a node is > one but < other, this is the last common ancestor
+        #Else, continue if they agree in one direction
 
-            path.append(node)
+        curr = root
+        while curr:
+            if p.val < curr.val and q.val < curr.val:
+                curr = curr.left
+            elif p.val > curr.val and q.val > curr.val:
+                curr = curr.right
+            else:
+                return curr
 
-            if node.val == target.val:
-                return path
 
-            # search left
-            left = dfs(node.left, path, target)
-            if left:
-                return left
-
-            # search right
-            right = dfs(node.right, path, target)
-            if right:
-                return right
-
-            path.pop()  # backtrack
-            return None #This was not the node we were looking for
-
-        pInfo = dfs(root,[],p)
-        qInfo = dfs(root,[],q)
-
-        if len(pInfo) < len(qInfo):
-            qInfo = qInfo[0:len(pInfo)]
-        elif len(pInfo) > len(qInfo):
-            pInfo = pInfo[0:len(qInfo)]
-
-        for plast, qlast in zip(pInfo[::-1], qInfo[::-1]):
-            if plast.val == qlast.val:
-                return plast
-        
         return None
-
-
-        
 
