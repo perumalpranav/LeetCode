@@ -18,64 +18,41 @@ class Solution:
         #For each character run, store the best we can do, and how many
         #If we can do better, use the current value to retroactively calculate how many we could do?
 
-        def updateoccurences(occurences, character, repeats, length):
-            if repeats < length:
-                return (False, occurences)
-            elif repeats == length:
-                occurences[character] += 1
-                if occurences[character] >= 3:
-                    return (True, occurences)
-                else:
-                    return (False, occurences)
+        compressions = defaultdict(list)
+        char = s[0]
+        num_repeats = 1
+        for c in s[1:]:
+            if c == char:
+                num_repeats += 1
             else:
-                numtimes = (repeats + 1) - length 
-                occurences[character] += numtimes
-                if occurences[character] >= 3:
-                    return (True, occurences)
-                else:
-                    return (False, occurences)
+                compressions[char].append(num_repeats)
+                char = c
+                num_repeats = 1
+        compressions[char].append(num_repeats)
 
-        compressed = []
-        bestcompression = 1
-        for c in s:
-            if len(compressed) > 0 and c == compressed[-1][0]:
-                compressed[-1][1] += 1
-                bestcompression = max(bestcompression, compressed[-1][1])
+        best = 0
+        for letter, compression_lengths in compressions.items():
+            compression_lengths = sorted(compression_lengths, reverse=True)
+            if len(compression_lengths) == 1:
+                if compression_lengths[0] >= 3:
+                    best = max(best, compression_lengths[0] - 2)
+            elif len(compression_lengths) == 2:
+                if compression_lengths[0] > compression_lengths[1]:
+                    best = max(best, max(compression_lengths[0] - 2, compression_lengths[1]))
+                else:
+                    best = max(best, compression_lengths[0] - 1)
             else:
-                compressed.append([c, 1])
+                if compression_lengths[0] > compression_lengths[1]:
+                    best = max(best, max(compression_lengths[0] - 2, compression_lengths[1]))
+                else:
+                    best = max(best, compression_lengths[0] - 1)
+                
+                best = max(best, compression_lengths[2])
+
+        if best == 0:
+            return -1
         
-
-        if bestcompression < 3:
-            best = -1
-            start = 1
-        else:
-            best = bestcompression - 2
-            start = best + 1
-
-        for l in range(start,(len(s)-1)):
-            satisfied = False
-            occurences = defaultdict(int)
-            i = 0
-
-
-            while i < len(compressed):
-                c, num_repeats = compressed[i]
-                
-                if num_repeats < l:
-                    compressed.pop(i)
-                    continue
-
-                satisfied, occurences = updateoccurences(occurences, c, num_repeats, l)
-                if satisfied:
-                    break
-                
-                i += 1
-
-
-            if satisfied:
-                best = l
-            else:
-                return best
         return best
+
 
         
