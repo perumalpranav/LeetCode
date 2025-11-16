@@ -1,5 +1,7 @@
 class Solution:
     def maximumInvitations(self, favorite: List[int]) -> int:
+        #CHATGPT, I STILL DONT GET IT
+
         n = len(favorite)
         indegree = [0] * n
         
