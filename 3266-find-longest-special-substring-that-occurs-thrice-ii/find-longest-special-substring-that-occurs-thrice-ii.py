@@ -36,14 +36,23 @@ class Solution:
                     return (False, occurences)
 
         compressed = []
+        bestcompression = 1
         for c in s:
             if len(compressed) > 0 and c == compressed[-1][0]:
                 compressed[-1][1] += 1
+                bestcompression = max(bestcompression, compressed[-1][1])
             else:
                 compressed.append([c, 1])
         
-        best = -1
-        for l in range(1,(len(s)-1)):
+
+        if bestcompression < 3:
+            best = -1
+            start = 1
+        else:
+            best = bestcompression - 2
+            start = best + 1
+
+        for l in range(start,(len(s)-1)):
             satisfied = False
             occurences = defaultdict(int)
             i = 0
