@@ -12,7 +12,6 @@ class Solution:
 
         for i in range(1,n):
             rem = (rem * 10) + int(word[i])
-            print(f"{i} {rem}")
             rem = rem % m
             if rem == 0:
                 ans.append(1)
