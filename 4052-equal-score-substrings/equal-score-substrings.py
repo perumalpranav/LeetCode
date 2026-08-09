@@ -11,6 +11,7 @@ class Solution:
         right = sum(alphabet_dict[c] for c in s)
 
         for i in range(len(s)):
+            print(f"left {left} right {right}")
             if left == right:
                 return True
             else:
