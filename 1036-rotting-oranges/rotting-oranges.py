@@ -33,7 +33,7 @@ class Solution:
                     fresh.remove((i, j-1))
                     queue.add((i, j-1))
 
-            rotten = rotten | queue
+            rotten = queue
 
             if rotted == 0 and len(fresh) > 0:
                 print(fresh)
