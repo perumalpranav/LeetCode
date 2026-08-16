@@ -13,7 +13,6 @@ public:
         }
         
         for(int i = 2; i * i < n; i += 1) {
-            cout << i << " " << primes[i] << '\n';
             if(not primes[i]) continue;
             for(int j = i * i; j < n; j += i) {
                 primes[j] = false;
